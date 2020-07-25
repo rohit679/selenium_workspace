@@ -10,7 +10,7 @@ SCOPE:
 5) Click to the 'Go to cart' button
 6) Close the browser
 """
-
+"Lord krishna I love you"
 import time 
 from selenium import webdriver
 
