@@ -54,7 +54,7 @@ def price_list_generator(product_list):
 
     return price_list
 
-
+" ooooooooooooooooooooo"
 def aloe_price(driver):
     """
         aloe_price is a function that takes driver as the arguement,
