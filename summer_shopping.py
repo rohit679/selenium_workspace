@@ -10,7 +10,7 @@ SCOPE:
 5) Click to the 'Go to cart' button
 6) Close the browser
 """
-#PYLINT RATING - 9.04
+
 import time
 from selenium import webdriver
 
@@ -55,7 +55,7 @@ def price_list_generator(product_list):
     return price_list
 
 
-def spf50_price(driver):
+def spf50_price():
     """
         spf50_price is a function that takes driver as the arguement,
         collects all the SPF50 product price and return it.
@@ -67,7 +67,7 @@ def spf50_price(driver):
     return generated_price
 
 
-def spf30_price(driver):
+def spf30_price():
     """
         spf30_price is a function that takes driver as the arguement,
         collects all the SPF30 product price and return it.
@@ -79,14 +79,14 @@ def spf30_price(driver):
     return generated_price
 
 
-def adding_spf50(driver):
+def adding_spf50():
     """
         getting_spf50 is a function that takes driver as the arguement,
         finds the minimum spf50 product available and clicks to the
         respective 'add' button.
     """
 
-    spf50_price_list = spf50_price(driver)
+    spf50_price_list = spf50_price()
     minimum_price = find_minimum_price(spf50_price_list)
 
     # Clicking the Add button of the least expensive product having spf50
@@ -95,14 +95,14 @@ def adding_spf50(driver):
     print("Clicked the Add button of the least expensive product having spf50")
 
 
-def adding_spf30(driver):
+def adding_spf30():
     """
         adding_spf30 is a function that takes driver as the arguement,
         finds the minimum spf30 product available and clicks to the
         respective 'add' button.
     """
 
-    spf30_price_list = spf30_price(driver)
+    spf30_price_list = spf30_price()
     minimum_price = find_minimum_price(spf30_price_list)
 
     # Clicking the Add button of the least expensive product having spf30
@@ -125,8 +125,8 @@ if __name__ == "__main__":
 
     time.sleep(5)
     # Calling function to add the respective product into the cart
-    adding_spf50(driver)
-    adding_spf30(driver)
+    adding_spf50()
+    adding_spf30()
 
     go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
     go_to_cart_button.click()
@@ -135,5 +135,3 @@ if __name__ == "__main__":
     time.sleep(3)
     # Closing the browser
     driver.close()
-
-

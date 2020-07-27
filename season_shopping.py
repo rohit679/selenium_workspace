@@ -8,7 +8,7 @@ SCOPE:
 4) According to the temperature, click to the respective button for shopping
 5) Close the browser
 """
-#PYLINT RATING - 9.47
+
 import time
 from selenium import webdriver
 # Creating webdriver and navigating to the respective website
@@ -38,4 +38,3 @@ else:
 #Closing the page
 time.sleep(5)
 driver.close()
-

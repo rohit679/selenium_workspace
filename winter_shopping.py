@@ -1,5 +1,4 @@
-"""
-This python module is for finding out two least expensive product
+"""This python module is for finding out two least expensive product
 in which one of them contain Aloe & other would contain Almond.
 
 SCOPE:
@@ -8,17 +7,14 @@ SCOPE:
 3) Finding out the product, which satisfies our base codition
 4) Click to the 'Add' button of the desired product
 5) Click to the 'Go to cart' button
-6) Close the browser
-"""
-#PYLINT RATING - 9.04
+6) Close the browser"""
+
 import time
 from selenium import webdriver
 
 def price_filteration(raw_price):
-    """
-        price_filteration is a function that takes all the price in the text format,
-        it will filter the actual price out by removing all irrelevant stuff & return it.
-    """
+    """price_filteration is a function that takes all the price in the text format,
+        it will filter the actual price out by removing all irrelevant stuff & return it."""
 
     price = raw_price.split("Price:")[-1]
     price = price.split("Rs.")[-1]
@@ -27,10 +23,8 @@ def price_filteration(raw_price):
 
 
 def find_minimum_price(price_list):
-    """
-        find_minimum_price is function that takes the price list,
-        finds the least one and return it.
-    """
+    """find_minimum_price is function that takes the price list,
+        finds the least one and return it."""
 
     minimum_price = 10000
     for price in price_list:
@@ -41,10 +35,8 @@ def find_minimum_price(price_list):
 
 
 def price_list_generator(product_list):
-    """
-        price_list_generator is a function that takes raw product price list,
-        manipulate all of them and return it.
-    """
+    """price_list_generator is a function that takes raw product price list,
+        manipulate all of them and return it."""
 
     price_list = []
     for cost in product_list:
@@ -55,11 +47,9 @@ def price_list_generator(product_list):
     return price_list
 
 
-def aloe_price(driver):
-    """
-        aloe_price is a function that takes driver as the arguement,
-        collects all the Aloe product price and return it.
-    """
+def aloe_price():
+    """aloe_price is a function that takes driver as the arguement,
+        collects all the Aloe product price and return it."""
 
     product_list = driver.find_elements_by_xpath("//*[contains(text(),'Aloe')]\
                                                   /following-sibling::p")
@@ -67,11 +57,9 @@ def aloe_price(driver):
     return generated_price
 
 
-def almond_price(driver):
-    """
-        almond_price is a function that takes driver as the arguement,
-        collects all the almond product price and return it.
-    """
+def almond_price():
+    """almond_price is a function that takes driver as the arguement,
+        collects all the almond product price and return it."""
 
     product_list = driver.find_elements_by_xpath("//*[contains(text(),'Almond')]\
                                                   /following-sibling::p")
@@ -79,14 +67,12 @@ def almond_price(driver):
     return generated_price
 
 
-def adding_aloe(driver):
-    """
-        getting_aloe is a function that takes driver as the arguement,
+def adding_aloe():
+    """getting_aloe is a function that takes driver as the arguement,
         finds the minimum Aloe product available and clicks to the
-        respective 'add' button.
-    """
+        respective 'add' button."""
 
-    aloe_price_list = aloe_price(driver)
+    aloe_price_list = aloe_price()
     minimum_price = find_minimum_price(aloe_price_list)
 
     # Clicking the Add button of the least expensive product having Aloe
@@ -95,14 +81,12 @@ def adding_aloe(driver):
     print("Clicked the Add button of the least expensive product having Aloe")
 
 
-def adding_almond(driver):
-    """
-        adding_almond is a function that takes driver as the arguement,
+def adding_almond():
+    """adding_almond is a function that takes driver as the arguement,
         finds the minimum Almond product available and clicks to the
-        respective 'add' button.
-    """
+        respective 'add' button."""
 
-    almond_price_list = almond_price(driver)
+    almond_price_list = almond_price()
     minimum_price = find_minimum_price(almond_price_list)
 
     # Clicking the Add button of the least expensive product having Almond
@@ -125,8 +109,8 @@ if __name__ == "__main__":
 
     time.sleep(5)
     # Calling function to add the respective product into the cart
-    adding_aloe(driver)
-    adding_almond(driver)
+    adding_aloe()
+    adding_almond()
 
     go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
     go_to_cart_button.click()
@@ -135,5 +119,3 @@ if __name__ == "__main__":
     time.sleep(3)
     # Closing the browser
     driver.close()
-
-

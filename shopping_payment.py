@@ -10,11 +10,11 @@ SCOPE:
 5) Click to the submit button
 6) Close the browser
 """
-#PYLINT RATING - 9.53
+
 import time
 from selenium import webdriver
 
-def fill_payment_details(driver):
+def fill_payment_details():
     """ This function is for filling the payment details via iframe popup """
 
     # switching driver to the iframe
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     time.sleep(5)
 
     # Calling function for filling the form
-    fill_payment_details(driver)
+    fill_payment_details()
 
     # Switch back to the main window
     # driver.switch_to_default_content()
@@ -86,21 +86,3 @@ if __name__ == "__main__":
     # Closing the driver
     driver.close()
     driver.quit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
