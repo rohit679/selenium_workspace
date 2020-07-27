@@ -8,18 +8,17 @@ SCOPE:
 4) According to the temperature, click to the respective button for shopping
 5) Close the browser
 """
-
+#PYLINT RATING - 9.47
 import time
 from selenium import webdriver
-
 # Creating webdriver and navigating to the respective website
 driver = webdriver.Chrome()
 driver.get('https://weathershopper.pythonanywhere.com/')
 
-if(driver.title == "Current Temperature"):
-    print ("Success: Navigation successful")
+if driver.title == "Current Temperature":
+    print("Success: Navigation successful")
 else:
-    print ("Failed: page Title is incorrect")
+    print("Failed: page Title is incorrect")
 
 # Finding temperature
 temp = driver.find_element_by_id('temperature').text
@@ -30,11 +29,9 @@ time.sleep(5)
 if temp < 19:
     driver.find_element_by_xpath("//button[text()='Buy moisturizers']").click()
     print("Weather is too cold, going for buying moisturizers")
-
 elif temp > 34:
     driver.find_element_by_xpath("//button[text()='Buy sunscreens']").click()
     print("Weather is too hot, going for buying sunscream")
-
 else:
     print("Weather is nice, don't need to buy anything!!!")
 
