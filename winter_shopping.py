@@ -53,8 +53,7 @@ def aloe_price():
 
     product_list = driver.find_elements_by_xpath("//*[contains(text(),'Aloe')]\
                                                   /following-sibling::p")
-    generated_price = price_list_generator(product_list)
-    return generated_price
+    return price_list_generator(product_list)
 
 
 def almond_price():
@@ -63,8 +62,8 @@ def almond_price():
 
     product_list = driver.find_elements_by_xpath("//*[contains(text(),'Almond')]\
                                                   /following-sibling::p")
-    generated_price = price_list_generator(product_list)
-    return generated_price
+    return price_list_generator(product_list)
+
 
 
 def adding_aloe():
