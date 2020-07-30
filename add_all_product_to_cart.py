@@ -53,8 +53,8 @@ def all_summer_product_price():
                                                  or contains(text(),'SPF-30')\
                                                  or contains(text(),'SPF-40')\
                                                  or contains(text(),'spf-30')\
-                                                 or contains(text(),'SPF-40')\
-                                                 or contains(text(),'SPF-50')]\
+                                                 or contains(text(),'spf-40')\
+                                                 or contains(text(),'spf-50')]\
                                                  /following-sibling::p")
     return price_list_generator(product_list)
 
