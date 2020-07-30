@@ -63,8 +63,8 @@ def spf50_price():
 
     product_list = driver.find_elements_by_xpath("//*[contains(text(),'SPF-50')]\
                                                   /following-sibling::p")
-    generated_price = price_list_generator(product_list)
-    return generated_price
+    return price_list_generator(product_list)
+
 
 
 def spf30_price():
@@ -75,8 +75,8 @@ def spf30_price():
 
     product_list = driver.find_elements_by_xpath("//*[contains(text(),'SPF-30')]\
                                                   /following-sibling::p")
-    generated_price = price_list_generator(product_list)
-    return generated_price
+    return price_list_generator(product_list)
+
 
 
 def adding_spf50():
