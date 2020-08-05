@@ -81,9 +81,9 @@ def adding_to_cart(season):
         that it adds the product.
     """
 
-    if season == "summer":
+    if season == "sunscreens":
         price_list = all_summer_product_price()
-    elif season == "winter":
+    elif season == "moisturizers":
         price_list = all_winter_product_price()
 
     # Clicking the Add button for all product one by one
@@ -101,29 +101,16 @@ def adding_to_cart(season):
     print("Clicked go to cart button successfully")
 
 
-
-def winter_product_shopping():
-    """
-        winter_product_shopping is a function that clicks out the buy moisturizer button &
-        adds all the respective product to the cart by calling funtion.
-    """
-
-    driver.find_element_by_xpath("//button[text()='Buy moisturizers']").click()
-    print("Clicked Buy moisturizers button successfully")
-    adding_to_cart("winter")
-    print("Yes!!! you have added all winter products to the cart:)")
-
-
-def summer_product_shopping():
+def product_shopping(product_name):
     """
         summer_product_shopping is a function that clicks out the buy sunscreens button &
         adds all the respective product to the cart by calling funtion.
     """
 
-    driver.find_element_by_xpath("//button[text()='Buy sunscreens']").click()
-    print("Clicked Buy sunscreens button successfully")
-    adding_to_cart("summer")
-    print("Yes!!! you have added all summer products to the cart:)")
+    driver.find_element_by_xpath("//button[text()='Buy {}']".format(product_name)).click()
+    print("Clicked Buy {} button successfully".format(product_name))
+    adding_to_cart(product_name)
+    print("Yes!!! you have added all {} products to the cart:)".format(product_name))
 
 if __name__ == "__main__":
     # Creating webdriver and navigating to the respective website
@@ -144,10 +131,10 @@ if __name__ == "__main__":
     # Navigate to the respective website according to the current temperature
     if temp < 19:
         print("Weather is too cold, going for buying moisturizers")
-        winter_product_shopping()
+        product_shopping("moisturizers")
     elif temp > 34:
-        print("Weather is too hot, going for buying sunscream")
-        summer_product_shopping()
+        print("Weather is too hot, going for buying sunscreens")
+        product_shopping("sunscreens")
     else:
         print("Weather is nice, don't need to buy anything!!!")
 
