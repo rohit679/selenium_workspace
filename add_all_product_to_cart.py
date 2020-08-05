@@ -73,6 +73,14 @@ def all_winter_product_price():
     return price_list_generator(product_list)
 
 
+def click_go_to_cart():
+    """
+        click_go_to_cart function is for clicking the go to cart button
+    """
+
+    go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
+    go_to_cart_button.click()
+    print("Clicked go to cart button successfully")
 
 
 def adding_to_cart(season):
@@ -95,21 +103,17 @@ def adding_to_cart(season):
 
     print("Clicked the Add button of all products")
 
-    go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
-    go_to_cart_button.click()
-
-    print("Clicked go to cart button successfully")
-
 
 def product_shopping(product_name):
     """
-        summer_product_shopping is a function that clicks out the buy sunscreens button &
+        product_shopping is a function that clicks out the buy button according to temperature &
         adds all the respective product to the cart by calling funtion.
     """
 
     driver.find_element_by_xpath("//button[text()='Buy {}']".format(product_name)).click()
     print("Clicked Buy {} button successfully".format(product_name))
     adding_to_cart(product_name)
+    click_go_to_cart()
     print("Yes!!! you have added all {} products to the cart:)".format(product_name))
 
 
