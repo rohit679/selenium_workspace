@@ -137,7 +137,9 @@ def finding_temperature():
     temperature = int(temperature[:-2])
     time.sleep(5)
     print("Current temperature is:",temperature)
+    print("lllllllllllllllll")
     return temperature
+
 
 
 if __name__ == "__main__":
