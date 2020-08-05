@@ -112,6 +112,36 @@ def product_shopping(product_name):
     adding_to_cart(product_name)
     print("Yes!!! you have added all {} products to the cart:)".format(product_name))
 
+
+def shopping_decision(temperature):
+    """
+        shopping_product is a function which will take current temperature
+        and based upon that, clicks the buy button.
+    """
+
+    if temperature < 19:
+        print("Weather is too cold, going for buying moisturizers")
+        product_shopping("moisturizers")
+    elif temperature > 34:
+        print("Weather is too hot, going for buying sunscreens")
+        product_shopping("sunscreens")
+    else:
+        print("Weather is nice, don't need to buy anything!!!")
+
+
+def finding_temperature():
+    """
+        finding_temperature is a function that is gonna find the
+        current temerature.
+    """
+
+    temperature = driver.find_element_by_id('temperature').text
+    temperature = int(temperature[:-2])
+    time.sleep(5)
+    print("Current temperature is:",temperature)
+    return temperature
+
+
 if __name__ == "__main__":
     # Creating webdriver and navigating to the respective website
     driver = webdriver.Chrome()
@@ -124,19 +154,9 @@ if __name__ == "__main__":
         print("Failed: page Title is incorrect")
 
     # Finding temperature
-    temp = driver.find_element_by_id('temperature').text
-    temp = int(temp[:-2])
-    time.sleep(5)
-
+    current_temperature = finding_temperature()
     # Navigate to the respective website according to the current temperature
-    if temp < 19:
-        print("Weather is too cold, going for buying moisturizers")
-        product_shopping("moisturizers")
-    elif temp > 34:
-        print("Weather is too hot, going for buying sunscreens")
-        product_shopping("sunscreens")
-    else:
-        print("Weather is nice, don't need to buy anything!!!")
+    shopping_decision(current_temperature)
 
     #Closing the page
     time.sleep(5)
