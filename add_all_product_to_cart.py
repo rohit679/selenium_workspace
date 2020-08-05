@@ -73,8 +73,6 @@ def all_winter_product_price():
     return price_list_generator(product_list)
 
 
-
-
 def adding_to_cart(season):
     """
         adding_to_cart function is gonna take season as the argument and based upon
