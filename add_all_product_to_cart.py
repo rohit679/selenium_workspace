@@ -26,6 +26,18 @@ def go_to_cart():
     print("Clicked go to cart button successfully")
 
 
+def click_add_product(button_list):
+    """
+        click_add_product is a function that takes button list as an input &
+        click out all.
+    """
+
+    for i in button_list:
+        i.click()
+        time.sleep(2)
+        print("successfully clicked!!!")
+
+
 def get_moisturizers_buttons():
     """
         get_moisturizers_buttons is a function that collects all the products and send all
@@ -54,18 +66,6 @@ def get_sunscreens_buttons():
                                                  or contains(text(),'spf-50')]\
                                                  /following-sibling::button")
     click_add_product(button_list)
-
-
-def click_add_product(button_list):
-    """
-        click_add_product is a function that takes button list as an input &
-        click out all.
-    """
-
-    for i in button_list:
-        i.click()
-        time.sleep(2)
-        print("successfully clicked!!!")
 
 
 def product_shopping(product_name):
