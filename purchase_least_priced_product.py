@@ -17,6 +17,11 @@ from selenium import webdriver
 
 
 def go_to_cart():
+    """
+        go_to_cart function is gonna take season as the argument and based upon
+        that it adds the product.
+    """
+
     go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
     go_to_cart_button.click()
     print("Clicked go to cart button successfully")
@@ -94,6 +99,11 @@ def all_winter_product_price():
 
 
 def adding_minimum_priced_product(price):
+    """
+        adding_minimum_priced_product is a function that takes minimum price
+        of product & clicks out that product.
+    """
+
     driver.find_element_by_xpath("//div[contains(@class,'col-4') and contains(.,'{}')]\
                                  /descendant::button[text()='Add']"\
                                  .format(str(price))).click()
@@ -114,8 +124,8 @@ def adding_to_cart(product_type):
         price_list = all_winter_product_price()
 
     minimum_priced_product = find_minimum_price(price_list)
-    # Clicking the Add button for the minimum priced product
     print("Minimum price is:", minimum_priced_product)
+    # Clicking the Add button for the minimum priced product
     adding_minimum_priced_product(minimum_priced_product)
 
 

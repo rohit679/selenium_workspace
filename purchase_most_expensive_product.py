@@ -7,13 +7,23 @@ SCOPE:
 2) Navigate to wathershopper.pythonanywhere site
 3) Check the current temperature
 4) Based on temperature, click button & navigate to the respective site
-5) Choose all the available products to the cart
+5) Choose most expensive available products to the cart
 6) Click the cart button
 7) Close the browser
 """
 
 import time
 from selenium import webdriver
+
+def go_to_cart():
+    """
+        go_to_cart function is gonna take season as the argument and based upon
+        that it adds the product.
+    """
+
+    go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
+    go_to_cart_button.click()
+    print("Clicked go to cart button successfully")
 
 
 def find_maximum_price(price_list):
@@ -87,59 +97,78 @@ def all_winter_product_price():
     return price_list_generator(product_list)
 
 
-
-
-def adding_to_cart(season):
+def adding_maximum_priced_product(price):
     """
-        adding_to_cart function is gonna take season as the argument and based upon
-        that it adds the product.
+        adding_maximum_priced_product is a function that takes maximum price
+        of product & clicks out that product.
     """
 
-    if season == "summer":
-        price_list = all_summer_product_price()
-    elif season == "winter":
-        price_list = all_winter_product_price()
-
-    most_expensive_product = find_maximum_price(price_list)
-
-    # Clicking the Add button for the minimum priced product
-    print("Maximum price is:", most_expensive_product)
     driver.find_element_by_xpath("//div[contains(@class,'col-4') and contains(.,'{}')]\
                                  /descendant::button[text()='Add']"\
-                                 .format(str(most_expensive_product))).click()
+                                 .format(str(price))).click()
     time.sleep(3)
-
-    print("Clicked the Add button of all products")
-
-    go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
-    go_to_cart_button.click()
-
-    print("Clicked go to cart button successfully")
+    print("Clicked the Add button of products having price {}".format(price))
 
 
-
-def winter_product_shopping():
+def adding_to_cart(product_type):
     """
-        winter_product_shopping is a function that clicks out the buy moisturizer button &
-        adds all the respective product to the cart by calling funtion.
+        adding_to_cart function is gonna take product type as the argument and based upon
+        that it adds the maximum priced product.
     """
 
-    driver.find_element_by_xpath("//button[text()='Buy moisturizers']").click()
-    print("Clicked Buy moisturizers button successfully")
-    adding_to_cart("winter")
-    print("Yes!!! you have added all winter products to the cart:)")
+    if product_type == "sunscreens":
+        price_list = all_summer_product_price()
+    else:
+        price_list = all_winter_product_price()
+
+    maximum_price = find_maximum_price(price_list)
+    print("Maximum price is:", maximum_price)
+    # Clicking the Add button for the minimum priced product
+    adding_maximum_priced_product(maximum_price)
 
 
-def summer_product_shopping():
+
+def product_shopping(product_type):
     """
-        summer_product_shopping is a function that clicks out the buy sunscreens button &
-        adds all the respective product to the cart by calling funtion.
+        product_shopping is a function that's take product type(sunscreens/moisturizers)
+        as an input and clicks the respective button and adds all the respective product
+        to the cart by calling funtion.
     """
 
-    driver.find_element_by_xpath("//button[text()='Buy sunscreens']").click()
-    print("Clicked Buy sunscreens button successfully")
-    adding_to_cart("summer")
-    print("Yes!!! you have added all summer products to the cart:)")
+    driver.find_element_by_xpath("//button[text()='Buy {}']".format(product_type)).click()
+    print("Clicked Buy {} button successfully".format(product_type))
+    adding_to_cart(product_type)
+    print("Yes!!! you have added most expensive {} products to the cart:)".format(product_type))
+
+
+def shopping_decision(temperature):
+    """
+        shopping_decision is a function which will take current temperature
+        and will be taking decision what to buy.
+    """
+
+    if temperature < 19:
+        print("Weather is too cold, going for buying moisturizers")
+        product_shopping("moisturizers")
+    elif temperature > 34:
+        print("Weather is too hot, going for buying sunscreens")
+        product_shopping("sunscreens")
+    else:
+        print("Weather is nice, don't need to buy anything!!!")
+
+
+def finding_temperature():
+    """
+        finding_temperature is a function that is gonna find the
+        current temerature.
+    """
+
+    temperature = driver.find_element_by_id('temperature').text
+    temperature = int(temperature[:-2])
+    time.sleep(5)
+    print("Current temperature is:",temperature)
+    return temperature
+
 
 if __name__ == "__main__":
     # Creating webdriver and navigating to the respective website
@@ -153,20 +182,11 @@ if __name__ == "__main__":
         print("Failed: page Title is incorrect")
 
     # Finding temperature
-    temp = driver.find_element_by_id('temperature').text
-    temp = int(temp[:-2])
-    time.sleep(5)
-
+    current_temperature = finding_temperature()
     # Navigate to the respective website according to the current temperature
-    if temp < 19:
-        print("Weather is too cold, going for buying moisturizers")
-        winter_product_shopping()
-    elif temp > 34:
-        print("Weather is too hot, going for buying sunscream")
-        summer_product_shopping()
-    else:
-        print("Weather is nice, don't need to buy anything!!!")
-
+    shopping_decision(current_temperature)
+    # After adding most expensive product to the cart, go to cart
+    go_to_cart()
     #Closing the page
     time.sleep(5)
     driver.close()
