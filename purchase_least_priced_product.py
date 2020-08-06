@@ -167,7 +167,7 @@ def finding_temperature():
     temperature = driver.find_element_by_id('temperature').text
     temperature = int(temperature[:-2])
     time.sleep(5)
-    print("Current temperature is:",temperature)
+    print("Current temperature is:", temperature)
     return temperature
 
 
