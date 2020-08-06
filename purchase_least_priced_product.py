@@ -93,6 +93,13 @@ def all_winter_product_price():
     return price_list_generator(product_list)
 
 
+def adding_minimum_priced_product(price):
+    driver.find_element_by_xpath("//div[contains(@class,'col-4') and contains(.,'{}')]\
+                                 /descendant::button[text()='Add']"\
+                                 .format(str(price))).click()
+    time.sleep(3)
+    print("Clicked the Add button of products having price {}".format(price))
+
 
 
 def adding_to_cart(product_type):
@@ -109,12 +116,7 @@ def adding_to_cart(product_type):
     minimum_priced_product = find_minimum_price(price_list)
     # Clicking the Add button for the minimum priced product
     print("Minimum price is:", minimum_priced_product)
-    driver.find_element_by_xpath("//div[contains(@class,'col-4') and contains(.,'{}')]\
-                                 /descendant::button[text()='Add']"\
-                                 .format(str(minimum_priced_product))).click()
-    time.sleep(3)
-    print("Clicked the Add button of all products")
-
+    adding_minimum_priced_product(minimum_priced_product)
 
 
 def product_shopping(product_type):
