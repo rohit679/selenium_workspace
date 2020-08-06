@@ -16,6 +16,12 @@ import time
 from selenium import webdriver
 
 
+def go_to_cart():
+    go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
+    go_to_cart_button.click()
+    print("Clicked go to cart button successfully")
+
+
 def find_minimum_price(price_list):
     """
         find_minimum_price is function that takes the price list,
@@ -89,57 +95,69 @@ def all_winter_product_price():
 
 
 
-def adding_to_cart(season):
+def adding_to_cart(product_type):
     """
         adding_to_cart function is gonna take season as the argument and based upon
         that it adds the product.
     """
 
-    if season == "summer":
+    if product_type == "sunscreens":
         price_list = all_summer_product_price()
-    elif season == "winter":
+    else:
         price_list = all_winter_product_price()
 
     minimum_priced_product = find_minimum_price(price_list)
-
     # Clicking the Add button for the minimum priced product
     print("Minimum price is:", minimum_priced_product)
     driver.find_element_by_xpath("//div[contains(@class,'col-4') and contains(.,'{}')]\
                                  /descendant::button[text()='Add']"\
                                  .format(str(minimum_priced_product))).click()
     time.sleep(3)
-
     print("Clicked the Add button of all products")
 
-    go_to_cart_button = driver.find_element_by_xpath("//button[contains(text(),'Cart')]")
-    go_to_cart_button.click()
-
-    print("Clicked go to cart button successfully")
 
 
-
-def winter_product_shopping():
+def product_shopping(product_type):
     """
-        winter_product_shopping is a function that clicks out the buy moisturizer button &
-        adds all the respective product to the cart by calling funtion.
+        product_shopping is a function that's take product type(sunscreens/moisturizers)
+        as an input and clicks the respective button and adds all the respective product
+        to the cart by calling funtion.
     """
 
-    driver.find_element_by_xpath("//button[text()='Buy moisturizers']").click()
-    print("Clicked Buy moisturizers button successfully")
-    adding_to_cart("winter")
-    print("Yes!!! you have added all winter products to the cart:)")
+    driver.find_element_by_xpath("//button[text()='Buy {}']".format(product_type)).click()
+    print("Clicked Buy {} button successfully".format(product_type))
+    adding_to_cart(product_type)
+    print("Yes!!! you have added least priced {} products to the cart:)".format(product_type))
 
 
-def summer_product_shopping():
+def shopping_decision(temperature):
     """
-        summer_product_shopping is a function that clicks out the buy sunscreens button &
-        adds all the respective product to the cart by calling funtion.
+        shopping_decision is a function which will take current temperature
+        and will be taking decision what to buy.
     """
 
-    driver.find_element_by_xpath("//button[text()='Buy sunscreens']").click()
-    print("Clicked Buy sunscreens button successfully")
-    adding_to_cart("summer")
-    print("Yes!!! you have added all summer products to the cart:)")
+    if temperature < 19:
+        print("Weather is too cold, going for buying moisturizers")
+        product_shopping("moisturizers")
+    elif temperature > 34:
+        print("Weather is too hot, going for buying sunscreens")
+        product_shopping("sunscreens")
+    else:
+        print("Weather is nice, don't need to buy anything!!!")
+
+
+def finding_temperature():
+    """
+        finding_temperature is a function that is gonna find the
+        current temerature.
+    """
+
+    temperature = driver.find_element_by_id('temperature').text
+    temperature = int(temperature[:-2])
+    time.sleep(5)
+    print("Current temperature is:",temperature)
+    return temperature
+
 
 if __name__ == "__main__":
     # Creating webdriver and navigating to the respective website
@@ -153,20 +171,11 @@ if __name__ == "__main__":
         print("Failed: page Title is incorrect")
 
     # Finding temperature
-    temp = driver.find_element_by_id('temperature').text
-    temp = int(temp[:-2])
-    time.sleep(5)
-
+    current_temperature = finding_temperature()
     # Navigate to the respective website according to the current temperature
-    if temp < 19:
-        print("Weather is too cold, going for buying moisturizers")
-        winter_product_shopping()
-    elif temp > 34:
-        print("Weather is too hot, going for buying sunscream")
-        summer_product_shopping()
-    else:
-        print("Weather is nice, don't need to buy anything!!!")
-
+    shopping_decision(current_temperature)
+    # After adding least priced product to the cart, go to cart
+    go_to_cart()
     #Closing the page
     time.sleep(5)
     driver.close()
