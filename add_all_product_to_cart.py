@@ -40,8 +40,8 @@ def click_add_product(button_list):
 
 def get_moisturizers_buttons():
     """
-        get_moisturizers_buttons is a function that collects all the products and send all
-        to get clicked.
+        get_moisturizers_buttons is a function that collects all the products buttons and
+        send all to get clicked.
     """
 
     button_list = driver.find_elements_by_xpath("//*[contains(text(),'Aloe')\
@@ -54,8 +54,8 @@ def get_moisturizers_buttons():
 
 def get_sunscreens_buttons():
     """
-        get_sunscreens_buttons is a function that collects all the products and send all
-        to get clicked.
+        get_sunscreens_buttons is a function that collects all the products buttons and
+        send all to get clicked.
     """
 
     button_list = driver.find_elements_by_xpath("//*[contains(text(),'SPF-50')\
@@ -68,21 +68,21 @@ def get_sunscreens_buttons():
     click_add_product(button_list)
 
 
-def product_shopping(product_name):
+def product_shopping(product_type):
     """
-        product_shopping is a function that's take product name as an input and clicks
-        the respective button and adds all the respective product to the cart by
-        calling funtion.
+        product_shopping is a function that's take product type(sunscreens/moisturizers)
+        as an input and clicks the respective button and adds all the respective product
+        to the cart by calling funtion.
     """
 
-    driver.find_element_by_xpath("//button[text()='Buy {}']".format(product_name)).click()
-    print("Clicked Buy {} button successfully".format(product_name))
-    if product_name == "sunscreens":
+    driver.find_element_by_xpath("//button[text()='Buy {}']".format(product_type)).click()
+    print("Clicked Buy {} button successfully".format(product_type))
+    if product_type == "sunscreens":
         get_sunscreens_buttons()
     else:
         get_moisturizers_buttons()
 
-    print("Yes!!! you have added all {} products to the cart:)".format(product_name))
+    print("Yes!!! you have added all {} products to the cart:)".format(product_type))
 
 
 def shopping_decision(temperature):
